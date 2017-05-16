@@ -2,7 +2,7 @@
 <html>
     <header>
         <title>Website Title</title>
-        <script src="graphics.js"/>
+        <script src="graphics.js"></script>
     </header>
     <body style="background-color:darkgray">
         <canvas id="myCanvas" width="800" height="480"></canvas>
@@ -16,11 +16,18 @@
         ctx.fillStyle = "gray";
         ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 
+        loop();
 
-        function loop() {
+        function loop() {            
             requestAnimationFrame(loop);
-
             ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+            // Rect
+            drawFillRect(ctx, "blue", {x:10, y:10, width:50, height:50});
+            drawStrokeRect(ctx, "green", {x:25, y:25, width:50, height:50}, 3);
+
+            // Arc
+            drawFillArc(ctx, "red", 60, 60, 25);
         };
 
         

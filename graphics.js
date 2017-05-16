@@ -3,14 +3,15 @@ function drawFillRect(ctx, style, rect) {
     ctx.fillRect(rect.x, rect.y, rect.width, rect.height);                                        
 };
 
-function drawStrokeRect(ctx, style, rect, strokeWidth) {
+function drawStrokeRect(ctx, style, rect, strokeWidth = 1) {
     ctx.strokeStyle = style;  
     ctx.strokeWidth = strokeWidth;
     ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 }
 
 function drawFillArc(ctx, style, centerX, centerY, radius, startAngle = 0, endAngle = 2 * Math.PI) {
-    ctx.beginPath();
+    ctx.fillStyle = style;
+    ctx.beginPath();    
     ctx.arc(centerX, centerY, radius, startAngle, endAngle);
     ctx.fill();
 };
