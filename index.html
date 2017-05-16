@@ -1,0 +1,29 @@
+<!DOCTYPE html> 
+<html>
+    <header>
+        <title>Website Title</title>
+        <script src="graphics.js"/>
+    </header>
+    <body style="background-color:darkgray">
+        <canvas id="myCanvas" width="800" height="480"></canvas>
+    </body>
+
+    <script>
+        var bounds = {x:0, y:0, width:800, height:480 };
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "gray";
+        ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+
+
+        function loop() {
+            requestAnimationFrame(loop);
+
+            ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        };
+
+        
+
+    </script>
+</html>
