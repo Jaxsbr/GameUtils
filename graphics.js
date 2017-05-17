@@ -16,7 +16,8 @@ function drawFillArc(ctx, style, centerX, centerY, radius, startAngle = 0, endAn
     ctx.fill();
 };
 
-function drawFillText(ctx, fontFamily, fontSize, text, x, y) {
+function drawFillText(ctx, style, fontFamily, fontSize, text, x, y) {
+    ctx.fillStyle = style;
     ctx.font = fontSize + "px" + fontFamily;        
     ctx.fillText(text, x, y);            
 };

@@ -1,17 +1,29 @@
 <!DOCTYPE html> 
 <html>
     <header>
-        <title>Website Title</title>
-        <script src="graphics.js"></script>
+        <title>Website Title</title>        
     </header>
-    <body style="background-color:darkgray">
+    <body type="text/javascript" style="background-color:darkgray">
         <canvas id="myCanvas" width="800" height="480"></canvas>
     </body>
 
+    <script src="graphics.js"></script>
     <script>
         var bounds = {x:0, y:0, width:800, height:480 };
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
+        var image = new Image();
+        var imageLoaded = false;
+        image.onload = function() { imageLoaded = true; };
+        image.src = "spriteSheet.png";
+
+        var tick = 2;
+        var ellapsed = 0;
+        var imageIndex = 0;
+        var row = 0;
+        var col = 0;
+        var rowMax = 4;
+        var colMax = 4;        
 
         ctx.fillStyle = "gray";
         ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
@@ -20,7 +32,7 @@
 
         function loop() {            
             requestAnimationFrame(loop);
-            ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);
+            ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);            
 
             // Rect
             drawFillRect(ctx, "blue", {x:10, y:10, width:50, height:50});
@@ -28,6 +40,25 @@
 
             // Arc
             drawFillArc(ctx, "red", 60, 60, 25);
+
+            // Text
+            drawFillText(ctx, "yellow", "MS Comic Sans", 40, "hello world", 65, 65);
+
+            // Image
+            if (image) { drawImage(ctx, image, {x:80, y:80, width:266, height:399}); }
+
+            ellapsed += 0.1;
+            if (ellapsed >= tick) {
+                ellapsed = 0;
+                col++;
+                if (col == colMax) { col = 0; }                
+            }
+
+            drawImage(
+                ctx, 
+                image,
+                {x:340, y:350, width:100, height:125},
+                {x:(col * 400.25), y:0, width:400.25, height:599.25});
         };
 
         
