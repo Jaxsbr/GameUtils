@@ -19,6 +19,7 @@ Animation.prototype.Update = function(destination, delta) {
 		if (this.FrameIndex >= this.FrameCount) { this.FrameIndex = 0; }		
 	}	
 	
+    // TODO: Add support for multiple rows, currently 0 hardcode enforces top row only.
     this.SourceDestination = { x:this.FrameIndex * this.FrameWidth, y:0, width:this.FrameWidth, height:this.FrameHeight };        
 };
 

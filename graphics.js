@@ -23,24 +23,15 @@ function drawFillText(ctx, style, fontFamily, fontSize, text, x, y) {
 };
 
 function drawImage(ctx, image, destinationRect, sourceRect = null) {
-    if (sourceRect) {
-        ctx.drawImage(
-            image, 
-            sourceRect.x, 
-            sourceRect.y, 
-            sourceRect.width, 
-            sourceRect.height,
-            destinationRect.x, 
-            destinationRect.y, 
-            destinationRect.width, 
-            destinationRect.height);
-    }            
-    else {
-        ctx.drawImage(
-            image, 
-            destinationRect.x, 
-            destinationRect.y, 
-            destinationRect.width, 
-            destinationRect.height);
-    }            
+    if (sourceRect) { drawImageComplex(ctx, image, destinationRect, sourceRect); }
+    else { drawImageSimple(ctx, image, destinationRect); }
+};    
+
+function drawImageSimple(ctx, image, destinationRect) {
+    ctx.drawImage(image, destinationRect.x, destinationRect.y, destinationRect.width, destinationRect.height);
+};
+
+function drawImageComplex(ctx, image, destinationRect, sourceRect) {
+    ctx.drawImage(image, sourceRect.x, sourceRect.y, sourceRect.width, sourceRect.height, 
+        destinationRect.x, destinationRect.y, destinationRect.width, destinationRect.height);
 };
