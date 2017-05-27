@@ -11,16 +11,19 @@ Animation = function(image, speed, frameWidth, frameHeight, frameCount) {
 };
 
 Animation.prototype.Update = function(destination, delta) {
-    this.DestinationBounds = destination;
+	this.DestinationBounds = destination;
+	this.UpdateFrameIndex();
+    // NOTE: No support for multiple rows, hardcoded y:0 enforces top row only.
+    this.SourceDestination = { x:this.FrameIndex * this.FrameWidth, y:0, width:this.FrameWidth, height:this.FrameHeight };        
+};
+
+Animation.prototype.UpdateFrameIndex = function() {    
 	this.Ellapsed += delta;
 	if (this.Ellapsed >= this.Speed) {
 		this.Ellapsed = 0;		
 		this.FrameIndex += 1;
 		if (this.FrameIndex >= this.FrameCount) { this.FrameIndex = 0; }		
 	}	
-	
-    // TODO: Add support for multiple rows, currently 0 hardcode enforces top row only.
-    this.SourceDestination = { x:this.FrameIndex * this.FrameWidth, y:0, width:this.FrameWidth, height:this.FrameHeight };        
 };
 
 Animation.prototype.Draw = function(ctx) {
