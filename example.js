@@ -29,6 +29,13 @@ image.onload = function() {
 };
 image.src = "trees.png";
 
+var backgroundImageReady = false;
+var backgroundImage = new Image();
+backgroundImage.onload = function() {
+    backgroundImageReady = true;
+};
+backgroundImage.src = "background.png";
+
 var paralaxBackgroundSlider;
      
 ctx.fillStyle = "gray";
@@ -79,7 +86,11 @@ function Update() {
 function Draw() {    
     ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);    
         
-    drawFillRect(ctx, "green", {x:bounds.X, y:bounds.Y, width:bounds.W, height:bounds.H});
+    if (this.backgroundImageReady) {
+        drawImage(ctx, this.backgroundImage, {x:bounds.X - 80, y:bounds.Y - 100, width:bounds.W, height:bounds.H}, null);
+    }
+
+    //drawFillRect(ctx, "green", {x:bounds.X, y:bounds.Y, width:bounds.W, height:bounds.H});
     paralaxBackgroundSlider.Draw(ctx); 
 };
 
