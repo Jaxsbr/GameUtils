@@ -25,7 +25,9 @@ var titleShadowTextY = 100;
 var titleText = "Animated Backgrounds";
 var titleFontSize = 60;
 var titleShadowFontSize = 60;
+var titleFontFamily = "Showcard Gothic";
 
+var textRender;
 
 var image = new Image();
 //var animation;
@@ -55,9 +57,24 @@ ctx.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
 
 
 
-
+InitTextRender();
 Loop();
 
+
+function InitTextRender() {    
+    var textElements = [];
+
+    textElements.push(
+        new TextElement(titleText, titleTextStyle, titleFontFamily, 50, 150, titleFontSize));
+
+    textElements.push(
+        new TextElement("todo: animate text!", "skyblue", titleFontFamily, 80, 255, 40));
+
+    textElements.push(
+        new TextElement("todo: create todo style menu!", "skyblue", titleFontFamily, 80, 295, 40));
+
+    textRender = new TextRender(textElements);
+};
 
 
 function PopulateParalaxBackgrounds() {
@@ -97,6 +114,7 @@ function Update() {
     paralaxBackgroundSlider.Update(bounds, delta);    
 
     UpdateTitleTextPosition();
+    textRender.Update(delta);
 };
 
 function UpdateTitleTextPosition() {
@@ -120,7 +138,8 @@ function Draw() {
     //drawFillRect(ctx, "green", {x:bounds.X, y:bounds.Y, width:bounds.W, height:bounds.H});
     paralaxBackgroundSlider.Draw(ctx); 
     
-    DrawTextOverlay();
+    //DrawTextOverlay();
+    textRender.Draw(ctx);
 };
 
 function DrawTextOverlay() {
@@ -134,11 +153,11 @@ function DrawTextOverlay() {
     DrawTitleText("skyblue", 80, 295, "todo: create todo style menu!", 40);
 }
 
-function DrawTitleText(style, x, y, text, fontSize) {
+function DrawTitleText(style, x, y, text, fontSize, fontFamily) {
     drawFillText(
         ctx, 
         style, 
-        "Showcard Gothic", 
+        fontFamily, 
         fontSize, 
         text, 
         x, 
