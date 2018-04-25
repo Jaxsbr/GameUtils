@@ -1,15 +1,5 @@
-Rect = function(x, y, w, h) {
-    this.X = x;
-    this.Y = y;
-    this.W = w;
-    this.H = h;
-}
 
-
-
-
-
-var bounds = new Rect(0, 0, window.innerWidth, window.innerHeight);
+var bounds = new Rectangle(0, 0, window.innerWidth, window.innerHeight);
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 
@@ -25,14 +15,15 @@ var titleFontFamily = "Showcard Gothic";
 
 var textRender;
 
+var animation;
+var animationDestination = new Rectangle(340, 350, 100, 125);
+var animationImage = new Image();
+animationImage.onload = function() {
+    animation = new Animation(image, 0.1, 400.25, 599.25, 4);   
+};
+
 var image = new Image();
-//var animation;
-//var animationDestination = new Rect(340, 350, 100, 125);
-
-image.onload = function() {     
-    // paramaters: image, speed, frameWidth, frameHeight, frameCount
-    //animation = new Animation(image, 0.1, 400.25, 599.25, 4);
-
+image.onload = function() {         
     paralaxBackgroundSlider = new ParalaxBackgroundSlider(image);
     PopulateParalaxBackgrounds();
 };
@@ -75,22 +66,27 @@ function InitTextRender() {
 function PopulateParalaxBackgrounds() {
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(1, new Rect(250, 0, 512, 512), 1, 0.01));    
+        new ParalaxBackground(1, new Rectangle(250, 0, 512, 512), 1, 0.01));    
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(2, new Rect(0, 150, 384, 384), 1, 0.02));    
+        new ParalaxBackground(2, new Rectangle(0, 150, 384, 384), 1, 0.02));    
     
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(3, new Rect(500, 250, 256, 256), 0, 0.03));             
+        new ParalaxBackground(3, new Rectangle(500, 250, 256, 256), 0, 0.03));             
 };
 
 
 function Loop() {           
     UpdateDelta();  
-
+    
     if (paralaxBackgroundSlider) {
         Update();
         Draw();
+    }
+
+    if (animation) {
+        animation.Update(delta);
+        animation.Draw(ctx);
     }
 
     requestAnimationFrame(Loop);   

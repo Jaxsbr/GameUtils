@@ -1,5 +1,3 @@
-// TODO:
-// Create Paralax Background Slider Object.
 
 ParalaxBackground = function(id, destination, direction, increment) {   
     this.ID = id; 
