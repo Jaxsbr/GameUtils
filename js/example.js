@@ -16,11 +16,11 @@ var titleFontSize = 60;
 var titleFontFamily = "Consolas";
 
 var animation;
-var animationDestination = new Rectangle(340, 500, 100, 125);
+var animationDestination = new Rectangle(450, 400, 100, 125);
 var animationImage = new Image();
 animationImage.onload = function() {
     // image, speed, sourceMaxWidth, sourceMaxHeight, frameCols, frameRows, startingCol, startingRow
-    animation = new Animation(animationImage, 0.25, 400.25, 599.25, 4, 1, 0, 2);
+    animation = new Animation(animationImage, 0.1, 400.25, 599.25, 4, 4, 0, 0);
 };
 animationImage.src = "img/spriteSheet.png";
 
@@ -120,6 +120,8 @@ function Draw() {
     //}
     
     paralaxBackgroundSlider.Draw(ctx);         
-    textRender.Draw(ctx);
+    
     animation.Draw(ctx);
+
+    textRender.Draw(ctx);
 };
