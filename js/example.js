@@ -19,8 +19,9 @@ var animation;
 var animationDestination = new Rectangle(340, 350, 100, 125);
 var animationImage = new Image();
 animationImage.onload = function() {
-    animation = new Animation(image, 0.1, 400.25, 599.25, 4);   
+    animation = new Animation(animationImage, 0.1, 400.25, 599.25, 4);   
 };
+animationImage.src = "img/spriteSheet.png";
 
 var textRender;
 var paralaxBackgroundSlider;  
@@ -74,7 +75,7 @@ function Loop() {
     }
 
     if (animation) {
-        animation.Update(delta);
+        animation.Update(animationDestination, delta);
         animation.Draw(ctx);
     }
 

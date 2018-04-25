@@ -18,6 +18,16 @@ class Animation {
 		this.SourceDestination = new Rectangle(this.FrameIndex * this.FrameWidth, 0, this.FrameWidth, this.FrameHeight); 
 	}
 
+	UpdateFrameIndex() {     
+		this.Ellapsed += delta;	   
+		if (this.Ellapsed >= this.Speed) {	   
+		  	this.Ellapsed = 0;    	   
+		  	this.FrameIndex += 1;	   
+		  	if (this.FrameIndex >= this.FrameCount) { this.FrameIndex = 0; }    	   
+		}  	   
+	};
+	  
+
 	Draw (ctx) {
 		drawImage(ctx, this.Image, this.DestinationBounds, this.SourceDestination);
 	}
