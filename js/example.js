@@ -16,10 +16,11 @@ var titleFontSize = 60;
 var titleFontFamily = "Showcard Gothic";
 
 var animation;
-var animationDestination = new Rectangle(340, 350, 100, 125);
+var animationDestination = new Rectangle(340, 500, 100, 125);
 var animationImage = new Image();
 animationImage.onload = function() {
-    animation = new Animation(animationImage, 0.1, 400.25, 599.25, 4);   
+    // image, speed, sourceMaxWidth, sourceMaxHeight, frameCols, frameRows, startingCol, startingRow
+    animation = new Animation(animationImage, 0.25, 400.25, 599.25, 4, 1, 0, 2);
 };
 animationImage.src = "img/spriteSheet.png";
 

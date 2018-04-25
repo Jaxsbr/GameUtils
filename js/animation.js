@@ -1,11 +1,15 @@
 class Animation { 
-	constructor(image, speed, frameWidth, frameHeight, frameCount) {	
+	constructor(image, speed, frameWidth, frameHeight, frameCols, frameRows, frameCol, frameRow) {	
 		this.Image = image;	
 		this.Speed = speed;	
 		this.FrameWidth = frameWidth;
 		this.FrameHeight = frameHeight;
-		this.FrameCount = frameCount;
-		this.FrameIndex = 0;	
+		this.FrameCols = frameCols;
+		this.FrameRows = frameRows;		
+		this.FrameColStart = frameCol;
+		this.FrameRowStart = frameRow;	
+		this.FrameCol = this.FrameColStart;	
+		this.FrameRow = this.FrameRowStart;				
 		this.Ellapsed = 0;
     	this.SourceBounds = new Rectangle(0, 0, 0, 0);
     	this.DestinationBounds = new Rectangle(0, 0, 0, 0);
@@ -15,15 +19,23 @@ class Animation {
 		this.DestinationBounds = destination;
 		this.UpdateFrameIndex();
 		// NOTE: No support for multiple rows, hardcoded y:0 enforces top row only.
-		this.SourceDestination = new Rectangle(this.FrameIndex * this.FrameWidth, 0, this.FrameWidth, this.FrameHeight); 
+		this.SourceDestination = new Rectangle(this.FrameCol * this.FrameWidth, this.FrameRow * this.FrameHeight, this.FrameWidth, this.FrameHeight); 
 	}
 
 	UpdateFrameIndex() {     
 		this.Ellapsed += delta;	   
 		if (this.Ellapsed >= this.Speed) {	   
-		  	this.Ellapsed = 0;    	   
-		  	this.FrameIndex += 1;	   
-		  	if (this.FrameIndex >= this.FrameCount) { this.FrameIndex = 0; }    	   
+			this.Ellapsed = 0;    	   
+			  
+		  	this.FrameCol += 1;	   
+		  	if (this.FrameCol >= this.FrameCols) { 
+				  this.FrameCol = this.FrameColStart; 
+				  this.FrameRow += 1;
+			}    	   
+
+			if (this.FrameRow >= this.FrameRows) {
+				this.FrameRow = this.FrameRowStart;
+			}
 		}  	   
 	};
 	  
