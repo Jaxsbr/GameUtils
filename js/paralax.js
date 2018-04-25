@@ -30,10 +30,15 @@ class ParalaxBackground {
     };
     
     Update(drawBounds, delta) {
+        //UpdateScrollingMode(drawBounds, delta);
+        this.UpdatePacingMode(drawBounds, delta);
+    }
+
+    UpdateScrollingMode(drawBounds, delta) {
         if (this.Destination.X > drawBounds.W) {
             this.Destination.X = -drawBounds.W;
         }
-
+        
         this.Destination.X += (delta * this.Increment);
     }
 
