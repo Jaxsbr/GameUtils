@@ -11,9 +11,9 @@ var deltaTime = Date.now();
 var titleTextStyle = "palegoldenrod";
 var titleTextX = 100;
 var titleTextY = 100;
-var titleText = "Animated Backgrounds";
+var titleText = "Game Utils";
 var titleFontSize = 60;
-var titleFontFamily = "Showcard Gothic";
+var titleFontFamily = "Consolas";
 
 var animation;
 var animationDestination = new Rectangle(340, 500, 100, 125);
@@ -30,10 +30,10 @@ var paralaxBackgroundSlider;
 var image = new Image();
 image.onload = function() {         
     paralaxBackgroundSlider = new ParalaxBackgroundSlider(image);
-    PopulateParalaxBackgrounds();
+    //PopulateParalaxBackgrounds();
+    PopulateFloatyBackgrounds();
 };
-//image.src = "img/trees.png";
-image.src = "img/backgroundLayer01.png";
+image.src = "img/trees.png";
 
 var backgroundImageReady = false;
 var backgroundImage = new Image();
@@ -53,8 +53,13 @@ Loop();
 function InitTextRender() {    
     textRender = new TextRender();
     textRender.AddTextElement(new TextElement(titleText, titleTextStyle, titleFontFamily, 50, 150, titleFontSize));
-    textRender.AddTextElement(new TextElement("todo: animate text!", "skyblue", titleFontFamily, 80, 255, 40));
-    textRender.AddTextElement(new TextElement("todo: create todo style menu!", "skyblue", titleFontFamily, 80, 295, 40));
+    textRender.AddTextElement(new TextElement("drawFillRect", "yellow", titleFontFamily, 80, 255, 40));
+    textRender.AddTextElement(new TextElement("drawStrokeRect", "yellow", titleFontFamily, 80, 295, 40));
+    textRender.AddTextElement(new TextElement("drawFillArc", "yellow", titleFontFamily, 80, 335, 40));
+    textRender.AddTextElement(new TextElement("drawFillText", "yellow", titleFontFamily, 80, 375, 40));
+    textRender.AddTextElement(new TextElement("drawImage", "yellow", titleFontFamily, 80, 415, 40));
+    textRender.AddTextElement(new TextElement("drawImageSimple", "yellow", titleFontFamily, 80, 455, 40));
+    textRender.AddTextElement(new TextElement("drawImageComplex", "yellow", titleFontFamily, 80, 495, 40));
 };
 
 
@@ -66,18 +71,24 @@ function PopulateParalaxBackgrounds() {
         new ParalaxBackground(4, new Rectangle(-bounds.W, 0, bounds.W, bounds.H), 1, 50));               
 };
 
+function PopulateFloatyBackgrounds() { 
+    paralaxBackgroundSlider.Backgrounds.push(
+        new ParalaxBackground(1, new Rectangle(250, 0, 512, 512), 1, 0.01));    
+
+    paralaxBackgroundSlider.Backgrounds.push(
+        new ParalaxBackground(2, new Rectangle(0, 150, 384, 384), 1, 0.02));    
+
+    paralaxBackgroundSlider.Backgrounds.push(    
+        new ParalaxBackground(3, new Rectangle(500, 250, 256, 256), 0, 0.03));  
+}
+
 
 function Loop() {           
     UpdateDelta();  
     
-    if (paralaxBackgroundSlider) {
+    if (paralaxBackgroundSlider && animation) {
         Update();
         Draw();
-    }
-
-    if (animation) {
-        animation.Update(animationDestination, delta);
-        animation.Draw(ctx);
     }
 
     requestAnimationFrame(Loop);   
@@ -92,22 +103,23 @@ function UpdateDelta() {
 function Update() {    
     paralaxBackgroundSlider.Update(bounds, delta);    
 
-    backgroundImageBounds.X = bounds.X - 155;
-    backgroundImageBounds.Y = bounds.Y - 100;
-    backgroundImageBounds.W = bounds.W;
-    backgroundImageBounds.H = bounds.H;
+    // backgroundImageBounds.X = bounds.X - 155;
+    // backgroundImageBounds.Y = bounds.Y - 100;
+    // backgroundImageBounds.W = bounds.W;
+    // backgroundImageBounds.H = bounds.H;
     
     textRender.Update(delta);
+    animation.Update(animationDestination, delta);    
 };
 
 function Draw() {    
-    ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);    
+    ctx.clearRect(bounds.X, bounds.Y, bounds.W, bounds.H);    
         
-    if (this.backgroundImageReady) {
+    //if (this.backgroundImageReady) {
         //drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
-    }
+    //}
     
-    paralaxBackgroundSlider.Draw(ctx); 
-        
+    paralaxBackgroundSlider.Draw(ctx);         
     textRender.Draw(ctx);
+    animation.Draw(ctx);
 };
