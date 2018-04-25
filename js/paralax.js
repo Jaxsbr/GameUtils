@@ -24,12 +24,20 @@ class ParalaxBackground {
             break;
     
             default:            
-                this.ImageSourceRect = new Rectangle(0, 0, 0, 0);
+                this.ImageSourceRect = new Rectangle(0, 0, 2048, 1546);
             break;
         }
     };
     
-    Update(drawBounds, delta) {   
+    Update(drawBounds, delta) {
+        if (this.Destination.X > drawBounds.W) {
+            this.Destination.X = -drawBounds.W;
+        }
+
+        this.Destination.X += (delta * this.Increment);
+    }
+
+    UpdatePacingMode(drawBounds, delta) {   
        if (this.Destination.X < drawBounds.X) {
         this.Destination.X = drawBounds.X;
         this.Direction = 1; // Go Right
@@ -42,11 +50,11 @@ class ParalaxBackground {
     
        var increment = this.Direction == 0 ? -this.Increment : this.Increment;
        this.Destination.X += increment;
-    };
+    }
     
     Draw(ctx, image) {    
         drawImage(ctx, image, this.Destination, this.ImageSourceRect);
-    };
+    }
 }
 
 

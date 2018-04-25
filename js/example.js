@@ -30,7 +30,8 @@ image.onload = function() {
     paralaxBackgroundSlider = new ParalaxBackgroundSlider(image);
     PopulateParalaxBackgrounds();
 };
-image.src = "img/trees.png";
+//image.src = "img/trees.png";
+image.src = "img/backgroundLayer01.png";
 
 var backgroundImageReady = false;
 var backgroundImage = new Image();
@@ -57,13 +58,10 @@ function InitTextRender() {
 
 function PopulateParalaxBackgrounds() {
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(1, new Rectangle(250, 0, 512, 512), 1, 0.01));    
+        new ParalaxBackground(4, new Rectangle(0, 0, bounds.W, bounds.H), 1, 50));    
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(2, new Rectangle(0, 150, 384, 384), 1, 0.02));    
-    
-    paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(3, new Rectangle(500, 250, 256, 256), 0, 0.03));             
+        new ParalaxBackground(4, new Rectangle(-bounds.W, 0, bounds.W, bounds.H), 1, 50));               
 };
 
 
@@ -104,7 +102,7 @@ function Draw() {
     ctx.clearRect(bounds.x, bounds.y, bounds.width, bounds.height);    
         
     if (this.backgroundImageReady) {
-        drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
+        //drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
     }
     
     paralaxBackgroundSlider.Draw(ctx); 
