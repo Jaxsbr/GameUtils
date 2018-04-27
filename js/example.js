@@ -30,7 +30,7 @@ var paralaxBackgroundSlider;
 var image = new Image();
 image.onload = function() {         
     paralaxBackgroundSlider = new ParalaxBackgroundSlider(image);
-    //PopulateParalaxBackgrounds();
+    PopulateParalaxBackgrounds();
     PopulateFloatyBackgrounds();
 };
 image.src = "img/trees.png";
@@ -41,7 +41,7 @@ backgroundImage.onload = function() {
     backgroundImageReady = true;
 };
 backgroundImage.src = "img/background.png";
-var backgroundImageBounds = new Rectangle(0, 0, 0, 0);
+var backgroundImageBounds = new Rectangle(bounds.X, bounds.Y, bounds.W, bounds.H);
 
    
 
@@ -52,34 +52,47 @@ Loop();
 
 function InitTextRender() {    
     textRender = new TextRender();
-    textRender.AddTextElement(new TextElement(titleText, titleTextStyle, titleFontFamily, 50, 150, titleFontSize));
-    textRender.AddTextElement(new TextElement("drawFillRect", "yellow", titleFontFamily, 80, 255, 40));
-    textRender.AddTextElement(new TextElement("drawStrokeRect", "yellow", titleFontFamily, 80, 295, 40));
-    textRender.AddTextElement(new TextElement("drawFillArc", "yellow", titleFontFamily, 80, 335, 40));
-    textRender.AddTextElement(new TextElement("drawFillText", "yellow", titleFontFamily, 80, 375, 40));
-    textRender.AddTextElement(new TextElement("drawImage", "yellow", titleFontFamily, 80, 415, 40));
-    textRender.AddTextElement(new TextElement("drawImageSimple", "yellow", titleFontFamily, 80, 455, 40));
-    textRender.AddTextElement(new TextElement("drawImageComplex", "yellow", titleFontFamily, 80, 495, 40));
+
+    // TODO: Implement ability to group and space text elements.
+    // Reduce required manual input of x and y coords.
+    // E.g : group1[header, item1, item2] group2[header, item1, item2]
+
+    textRender.AddTextElement(new TextElement(titleText, titleTextStyle, titleFontFamily, 20, 75, titleFontSize));
+    textRender.AddTextElement(new TextElement("Animations", "yellow", titleFontFamily, 80, 125, 40));
+    textRender.AddTextElement(new TextElement("Text Rendering", "yellow", titleFontFamily, 80, 165, 40));
+    textRender.AddTextElement(new TextElement("Paralax Backgrounds", "yellow", titleFontFamily, 80, 205, 40));    
+
+    textRender.AddTextElement(new TextElement("TODO: ", titleTextStyle, titleFontFamily, 20, 450, titleFontSize));
+    textRender.AddTextElement(new TextElement("GameUtils: Update main page with feature demos", "orange", titleFontFamily, 80,500, 40));
+    textRender.AddTextElement(new TextElement("GameUtils: Build and packaging investigation", "orange", titleFontFamily, 80, 550, 40));
+    textRender.AddTextElement(new TextElement("GameUtils: Implement image loading class", "orange", titleFontFamily, 80, 600, 40));
+    textRender.AddTextElement(new TextElement("TextRender: Implement TextElementGroup class", "yellow", titleFontFamily, 80, 650, 40));
+    textRender.AddTextElement(new TextElement("TextRender: Implement TextElementGroup class", "yellow", titleFontFamily, 80, 700, 40));
+    textRender.AddTextElement(new TextElement("TextRender: Add adjustable text shadows", "yellow", titleFontFamily, 80, 750, 40));
 };
 
 
 function PopulateParalaxBackgrounds() {
-    paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(4, new Rectangle(0, 0, bounds.W, bounds.H), 1, 50));    
+    let scrollingMode = 0; // TODO: Create global setting;
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(4, new Rectangle(-bounds.W, 0, bounds.W, bounds.H), 1, 50));               
+        new ParalaxBackground(4, new Rectangle(0, 600, bounds.W, bounds.H), 1, 50, scrollingMode, image));    
+
+    paralaxBackgroundSlider.Backgrounds.push(
+        new ParalaxBackground(4, new Rectangle(-bounds.W, 600, bounds.W, bounds.H), 1, 50, scrollingMode, image));               
 };
 
 function PopulateFloatyBackgrounds() { 
-    paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(1, new Rectangle(250, 0, 512, 512), 1, 0.01));    
+    let pacingMode = 1; // TODO: Create global setting;
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(2, new Rectangle(0, 150, 384, 384), 1, 0.02));    
+        new ParalaxBackground(1, new Rectangle(250, 0, 512, 512), 1, 0.01, pacingMode, image));    
+
+    paralaxBackgroundSlider.Backgrounds.push(
+        new ParalaxBackground(2, new Rectangle(0, 150, 384, 384), 1, 0.02, pacingMode, image));    
 
     paralaxBackgroundSlider.Backgrounds.push(    
-        new ParalaxBackground(3, new Rectangle(500, 250, 256, 256), 0, 0.03));  
+        new ParalaxBackground(3, new Rectangle(500, 250, 256, 256), 0, 0.03, pacingMode, image));  
 }
 
 
@@ -101,13 +114,7 @@ function UpdateDelta() {
 };
 
 function Update() {    
-    paralaxBackgroundSlider.Update(bounds, delta);    
-
-    // backgroundImageBounds.X = bounds.X - 155;
-    // backgroundImageBounds.Y = bounds.Y - 100;
-    // backgroundImageBounds.W = bounds.W;
-    // backgroundImageBounds.H = bounds.H;
-    
+    paralaxBackgroundSlider.Update(bounds, delta);        
     textRender.Update(delta);
     animation.Update(animationDestination, delta);    
 };
@@ -115,9 +122,9 @@ function Update() {
 function Draw() {    
     ctx.clearRect(bounds.X, bounds.Y, bounds.W, bounds.H);    
         
-    //if (this.backgroundImageReady) {
-        //drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
-    //}
+    if (this.backgroundImageReady) {
+        drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
+    }
     
     paralaxBackgroundSlider.Draw(ctx);         
     

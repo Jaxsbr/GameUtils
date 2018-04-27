@@ -1,11 +1,12 @@
 
 class ParalaxBackground {
-    constructor(id, destination, direction, increment) {   
+    constructor(id, destination, direction, increment, paralaxMode, image) {   
         this.ID = id; 
         this.Destination = destination;
         this.Direction = direction;
         this.Increment = increment;    
-        
+        this.ParalaxMode = paralaxMode; // ScrollingMode = 0, PacingMode = 1
+        this.Image = image;
         this.SetImageSourceRect();
     }
 
@@ -30,16 +31,20 @@ class ParalaxBackground {
     };
     
     Update(drawBounds, delta) {
-        //UpdateScrollingMode(drawBounds, delta);
-        this.UpdatePacingMode(drawBounds, delta);
+        if (this.ParalaxMode == 0) {
+            this.UpdateScrollingMode(drawBounds, delta);
+        }
+        else {
+            this.UpdatePacingMode(drawBounds, delta);
+        }                
     }
 
     UpdateScrollingMode(drawBounds, delta) {
         if (this.Destination.X > drawBounds.W) {
-            this.Destination.X = -drawBounds.W;
+            this.Destination.X = -drawBounds.W - this.Increment;
         }
         
-        this.Destination.X += (delta * this.Increment);
+        this.Destination.X += this.Increment;
     }
 
     UpdatePacingMode(drawBounds, delta) {   
@@ -57,16 +62,15 @@ class ParalaxBackground {
        this.Destination.X += increment;
     }
     
-    Draw(ctx, image) {    
-        drawImage(ctx, image, this.Destination, this.ImageSourceRect);
+    Draw(ctx) {    
+        drawImage(ctx, this.Image, this.Destination, this.ImageSourceRect);
     }
 }
 
 
 class ParalaxBackgroundSlider {
-    constructor(image) {
-        this.Backgrounds = [];
-        this.Image = image;
+    constructor() {
+        this.Backgrounds = [];        
     }
 
     Update(drawBounds, delta) {
@@ -77,7 +81,7 @@ class ParalaxBackgroundSlider {
     
     Draw(ctx) {
         for (var i = 0; i < this.Backgrounds.length; i++) {
-            this.Backgrounds[i].Draw(ctx, this.Image);
+            this.Backgrounds[i].Draw(ctx);
         }    
     }
 }
