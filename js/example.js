@@ -8,15 +8,15 @@ var ctx = canvas.getContext("2d");
 var delta = 0;
 var deltaTime = Date.now();
 
-var titleTextStyle = "palegoldenrod";
+var titleTextStyle = "purple";
 var titleTextX = 100;
 var titleTextY = 100;
 var titleText = "Game Utils";
 var titleFontSize = 60;
-var titleFontFamily = "Consolas";
+var titleFontFamily = "Showcard Gothic";
 
 var animation;
-var animationDestination = new Rectangle(450, 400, 100, 125);
+var animationDestination = new Rectangle(600, 280, 100, 125);
 var animationImage = new Image();
 animationImage.onload = function() {
     // image, speed, sourceMaxWidth, sourceMaxHeight, frameCols, frameRows, startingCol, startingRow
@@ -76,23 +76,33 @@ function PopulateParalaxBackgrounds() {
     let scrollingMode = 0; // TODO: Create global setting;
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(4, new Rectangle(0, 600, bounds.W, bounds.H), 1, 50, scrollingMode, image));    
+        new ParalaxBackground(4, new Rectangle(0, 0, bounds.W * 2, bounds.H), 1, 2, scrollingMode, backgroundImage));    
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(4, new Rectangle(-bounds.W, 600, bounds.W, bounds.H), 1, 50, scrollingMode, image));               
+        new ParalaxBackground(4, new Rectangle(-bounds.W, 0, bounds.W * 2, bounds.H), 1, 2, scrollingMode, backgroundImage));               
 };
 
 function PopulateFloatyBackgrounds() { 
     let pacingMode = 1; // TODO: Create global setting;
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(1, new Rectangle(250, 0, 512, 512), 1, 0.01, pacingMode, image));    
+        new ParalaxBackground(1, new Rectangle(640, 256, 128, 128), 1, 0.01, pacingMode, image));    
 
     paralaxBackgroundSlider.Backgrounds.push(
-        new ParalaxBackground(2, new Rectangle(0, 150, 384, 384), 1, 0.02, pacingMode, image));    
+        new ParalaxBackground(2, new Rectangle(0, 0, 384, 384), 1, 0.02, pacingMode, image));    
 
     paralaxBackgroundSlider.Backgrounds.push(    
-        new ParalaxBackground(3, new Rectangle(500, 250, 256, 256), 0, 0.03, pacingMode, image));  
+        new ParalaxBackground(3, new Rectangle(384, 128, 256, 256), 0, 0.03, pacingMode, image));  
+
+
+    paralaxBackgroundSlider.Backgrounds.push(
+        new ParalaxBackground(1, new Rectangle(0, 656, 128, 128), 1, 0.03, pacingMode, image));    
+    
+    paralaxBackgroundSlider.Backgrounds.push(
+        new ParalaxBackground(2, new Rectangle(384, 400, 384, 384), 1, 0.035, pacingMode, image));    
+    
+    paralaxBackgroundSlider.Backgrounds.push(    
+        new ParalaxBackground(3, new Rectangle(640, 528, 256, 256), 0, 0.04, pacingMode, image));  
 }
 
 
@@ -114,6 +124,13 @@ function UpdateDelta() {
 };
 
 function Update() {    
+
+
+    // TODO:
+    // Remove and implement windows size changed event instead.
+    bounds = new Rectangle(0, 0, window.innerWidth, window.innerHeight);
+
+
     paralaxBackgroundSlider.Update(bounds, delta);        
     textRender.Update(delta);
     animation.Update(animationDestination, delta);    
@@ -123,7 +140,7 @@ function Draw() {
     ctx.clearRect(bounds.X, bounds.Y, bounds.W, bounds.H);    
         
     if (this.backgroundImageReady) {
-        drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
+        //drawImage(ctx, this.backgroundImage, backgroundImageBounds, null);
     }
     
     paralaxBackgroundSlider.Draw(ctx);         

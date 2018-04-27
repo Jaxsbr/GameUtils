@@ -25,7 +25,7 @@ class ParalaxBackground {
             break;
     
             default:            
-                this.ImageSourceRect = new Rectangle(0, 0, 2048, 1546);
+                this.ImageSourceRect = new Rectangle(0, 0, this.Image.width, this.Image.height);
             break;
         }
     };
