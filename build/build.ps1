@@ -1,11 +1,8 @@
-# Get parent/parent directory "GameUtils"
-# Append js/utils/ to above directory "GameUtils/js/utils" (content directory)
-# Append js/utils.js to above directory "GameUtils/js/utils.js" (lib path)
+# Find relative paths
+$mainDirectory = $PSScriptRoot.Replace("\build", "");
 
-$mainDirectory = (Get-ScriptDirectory).parent;
-
-$contentFilesDirectory = $mainDirectory.parent + "\js\utils";
-$outputFilePath = "C:\Users\JacoBr\Desktop\utils.js";
+$contentFilesDirectory = $mainDirectory + "\js\utils";
+$outputFilePath = $mainDirectory + "\js\utils.js";
 
 # Clean old content
 Clear-Content $outputFilePath;
