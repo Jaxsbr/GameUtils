@@ -228,7 +228,7 @@ class Rectangle {
     }
 }
 class TextElement {
-    constructor(text, style, fontFamily, textX, textY, fontSize) {
+    constructor(text, style, fontFamily, textX, textY, fontSize, shadowOffset) {
         this.Text = text;
         this.Style = style;
         this.FontFamily = fontFamily
@@ -237,8 +237,8 @@ class TextElement {
         this.FontSize = fontSize;
 
         this.ShadowStyle = "black";
-        this.ShadowX = 5;
-        this.ShadowY = 5;
+        this.ShadowX = shadowOffset.X;
+        this.ShadowY = shadowOffset.Y;
 
         // TODO:
         // Create animation type, determine movement pattern.

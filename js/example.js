@@ -52,21 +52,22 @@ Loop();
 
 function InitTextRender() {    
     textRender = new TextRender();
+    let shadowOffsetTitle = new Point(5, 5);
+    let shadowOffsetContent = new Point(2, 2);
 
     // TODO: Implement ability to group and space text elements.
     // Reduce required manual input of x and y coords.
     // E.g : group1[header, item1, item2] group2[header, item1, item2]
 
-    textRender.AddTextElement(new TextElement(titleText, titleTextStyle, titleFontFamily, 20, 75, titleFontSize));
-    textRender.AddTextElement(new TextElement("Animations", "yellow", titleFontFamily, 80, 125, 40));
-    textRender.AddTextElement(new TextElement("Text Rendering", "yellow", titleFontFamily, 80, 165, 40));
-    textRender.AddTextElement(new TextElement("Paralax Backgrounds", "yellow", titleFontFamily, 80, 205, 40));    
+    textRender.AddTextElement(new TextElement(titleText, titleTextStyle, titleFontFamily, 20, 75, titleFontSize, shadowOffsetTitle));
+    textRender.AddTextElement(new TextElement("Animations", "yellow", titleFontFamily, 80, 125, 40, shadowOffsetContent));
+    textRender.AddTextElement(new TextElement("Text Rendering", "yellow", titleFontFamily, 80, 165, 40, shadowOffsetContent));
+    textRender.AddTextElement(new TextElement("Paralax Backgrounds", "yellow", titleFontFamily, 80, 205, 40, shadowOffsetContent));    
 
-    textRender.AddTextElement(new TextElement("TODO: ", titleTextStyle, titleFontFamily, 20, 450, titleFontSize));
-    textRender.AddTextElement(new TextElement("GameUtils: Update main page with feature demos", "orange", titleFontFamily, 80,500, 40));    
-    textRender.AddTextElement(new TextElement("GameUtils: Implement image loading class", "orange", titleFontFamily, 80, 550, 40));
-    textRender.AddTextElement(new TextElement("TextRender: Implement TextElementGroup class", "yellow", titleFontFamily, 80, 600, 40));    
-    textRender.AddTextElement(new TextElement("TextRender: Add adjustable text shadows", "yellow", titleFontFamily, 80, 650, 40));
+    textRender.AddTextElement(new TextElement("TODO: ", titleTextStyle, titleFontFamily, 20, 450, titleFontSize, shadowOffsetTitle));
+    textRender.AddTextElement(new TextElement("GameUtils: Update main page with feature demos", "orange", titleFontFamily, 80,500, 40, shadowOffsetContent));    
+    textRender.AddTextElement(new TextElement("GameUtils: Implement image loading class", "orange", titleFontFamily, 80, 550, 40, shadowOffsetContent));
+    textRender.AddTextElement(new TextElement("TextRender: Implement TextElementGroup class", "yellow", titleFontFamily, 80, 600, 40, shadowOffsetContent));        
 };
 
 
